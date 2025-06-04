@@ -1,4 +1,4 @@
-# 🤖 LLM-DFine-DeepSORT-Object-Detection-Framework
+# 🤖 LLM-DFine-DeepSORT-Integrated-Vision-Analytics-Platform
 
 An intelligent object detection system that combines **D-Fine** object detection with **Groq Llama AI** for natural language processing and **DeepSORT** for unique people tracking. This framework allows users to upload images or videos and describe what they want to detect in plain English, leveraging advanced AI models for natural language understanding, computer vision, and unique object tracking.
 
@@ -74,7 +74,7 @@ The framework consists of multiple integrated layers:
 1. **Clone the repository**
    ```bash
    git clone <your-repo-url>
-   cd LLM-DFine-DeepSORT-Object-Detection-Framework
+   cd LLM-DFine-DeepSORT-Integrated-Vision-Analytics-Platform
    ```
 
 2. **Install dependencies**
@@ -316,5 +316,6 @@ For support, please:
 
 ---
 
-**Made with ❤️ and AI - Featuring DeepSORT Unique People Tracking** #   L L M - D F i n e - D e e p S O R T - I n t e g r a t e d - V i s i o n - A n a l y t i c s - P l a t f o r m  
- 
+**Made with ❤️ and AI - Featuring DeepSORT Unique People Tracking**
+
+---

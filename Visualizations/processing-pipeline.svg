@@ -2,10 +2,10 @@
 <svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      .title { font: bold 24px Arial; text-anchor: middle; fill: #2c3e50; }
-      .subtitle { font: bold 16px Arial; text-anchor: middle; fill: #34495e; }
-      .node-text { font: 11px Arial; text-anchor: middle; fill: white; font-weight: bold; }
-      .node-small { font: 9px Arial; text-anchor: middle; fill: white; }
+      .title { font: bold 22px Arial; text-anchor: middle; fill: #2c3e50; }
+      .subtitle { font: bold 14px Arial; text-anchor: middle; fill: #34495e; }
+      .node-text { font: 10px Arial; text-anchor: middle; fill: white; font-weight: bold; }
+      .node-small { font: 8px Arial; text-anchor: middle; fill: white; }
       .arrow { stroke: #7f8c8d; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
       .decision-arrow { stroke: #e67e22; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
       .error-arrow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
@@ -25,167 +25,167 @@
   </defs>
   
   <!-- Title -->
-  <text x="600" y="30" class="title">LLM-DFine-DeepSORT Processing Pipeline</text>
-  <text x="600" y="55" class="subtitle">Detailed Component Interaction Flow</text>
+  <text x="600" y="25" class="title">LLM-DFine-DeepSORT-Integrated-Vision-Analytics-Platform</text>
+  <text x="600" y="45" class="subtitle">Detailed Component Interaction Flow</text>
   
   <!-- Start -->
-  <ellipse cx="600" cy="100" rx="120" ry="25" class="start-end"/>
-  <text x="600" y="95" class="node-text">👤 User Uploads</text>
-  <text x="600" y="110" class="node-small">File + Prompt</text>
+  <ellipse cx="600" cy="85" rx="120" ry="25" class="start-end"/>
+  <text x="600" y="80" class="node-text">👤 User Uploads</text>
+  <text x="600" y="95" class="node-small">File + Prompt</text>
   
   <!-- File Type Decision -->
-  <polygon points="600,170 550,200 600,230 650,200" class="decision"/>
-  <text x="600" y="195" class="node-small" fill="white">📁 File Type?</text>
-  <text x="600" y="210" class="node-small" fill="white">Image or Video</text>
+  <polygon points="600,140 560,170 600,200 640,170" class="decision"/>
+  <text x="600" y="165" class="node-small" fill="white">📁 File Type?</text>
+  <text x="600" y="180" class="node-small" fill="white">Image or Video</text>
   
   <!-- Image Path -->
-  <rect x="300" y="280" width="140" height="50" rx="10" class="process"/>
-  <text x="370" y="300" class="node-text">📷 Image Path</text>
-  <text x="370" y="315" class="node-small">Single Frame Processing</text>
+  <rect x="300" y="250" width="140" height="50" rx="10" class="process"/>
+  <text x="370" y="270" class="node-text">📷 Image Path</text>
+  <text x="370" y="285" class="node-small">Single Frame Processing</text>
   
   <!-- Video Path -->
-  <rect x="660" y="280" width="140" height="50" rx="10" class="process"/>
-  <text x="730" y="300" class="node-text">🎥 Video Path</text>
-  <text x="730" y="315" class="node-small">Multi-Frame Processing</text>
+  <rect x="660" y="250" width="140" height="50" rx="10" class="process"/>
+  <text x="730" y="270" class="node-text">🎥 Video Path</text>
+  <text x="730" y="285" class="node-small">Multi-Frame Processing</text>
   
   <!-- LLM Analysis (Image) -->
-  <rect x="250" y="380" width="140" height="60" rx="10" class="ai-process"/>
-  <text x="320" y="400" class="node-text">🧠 LLM Analysis</text>
-  <text x="320" y="415" class="node-small">Extract Parameters</text>
-  <text x="320" y="430" class="node-small">Objects, ROI, Confidence</text>
+  <rect x="250" y="350" width="140" height="60" rx="10" class="ai-process"/>
+  <text x="320" y="370" class="node-text">🧠 LLM Analysis</text>
+  <text x="320" y="385" class="node-small">Extract Parameters</text>
+  <text x="320" y="400" class="node-small">Objects, ROI, Confidence</text>
   
   <!-- LLM Analysis (Video) -->
-  <rect x="610" y="380" width="140" height="60" rx="10" class="ai-process"/>
-  <text x="680" y="400" class="node-text">🧠 LLM Analysis</text>
-  <text x="680" y="415" class="node-small">Extract Parameters</text>
-  <text x="680" y="430" class="node-small">Objects, ROI, Confidence</text>
+  <rect x="610" y="350" width="140" height="60" rx="10" class="ai-process"/>
+  <text x="680" y="370" class="node-text">🧠 LLM Analysis</text>
+  <text x="680" y="385" class="node-small">Extract Parameters</text>
+  <text x="680" y="400" class="node-small">Objects, ROI, Confidence</text>
   
   <!-- Parameter Validation (Image) -->
-  <rect x="250" y="480" width="140" height="50" rx="10" class="ai-process"/>
-  <text x="320" y="500" class="node-text">✅ Parameter Validation</text>
-  <text x="320" y="515" class="node-small">Smart Enhancement</text>
+  <rect x="250" y="450" width="140" height="50" rx="10" class="ai-process"/>
+  <text x="320" y="470" class="node-text">✅ Parameter Validation</text>
+  <text x="320" y="485" class="node-small">Smart Enhancement</text>
   
   <!-- Parameter Validation (Video) -->
-  <rect x="610" y="480" width="140" height="50" rx="10" class="ai-process"/>
-  <text x="680" y="500" class="node-text">✅ Parameter Validation</text>
-  <text x="680" y="515" class="node-small">Smart Enhancement</text>
+  <rect x="610" y="450" width="140" height="50" rx="10" class="ai-process"/>
+  <text x="680" y="470" class="node-text">✅ Parameter Validation</text>
+  <text x="680" y="485" class="node-small">Smart Enhancement</text>
   
   <!-- D-Fine Detection (Image) -->
-  <rect x="250" y="580" width="140" height="50" rx="10" class="detection"/>
-  <text x="320" y="600" class="node-text">🔍 D-Fine Detection</text>
-  <text x="320" y="615" class="node-small">Single Frame Analysis</text>
+  <rect x="250" y="550" width="140" height="50" rx="10" class="detection"/>
+  <text x="320" y="570" class="node-text">🔍 D-Fine Detection</text>
+  <text x="320" y="585" class="node-small">Single Frame Analysis</text>
   
   <!-- D-Fine Detection (Video) -->
-  <rect x="610" y="580" width="140" height="50" rx="10" class="detection"/>
-  <text x="680" y="600" class="node-text">🔍 D-Fine Detection</text>
-  <text x="680" y="615" class="node-small">Multi-Frame Analysis</text>
+  <rect x="610" y="550" width="140" height="50" rx="10" class="detection"/>
+  <text x="680" y="570" class="node-text">🔍 D-Fine Detection</text>
+  <text x="680" y="585" class="node-small">Multi-Frame Analysis</text>
   
   <!-- DeepSORT Tracking -->
-  <rect x="810" y="580" width="140" height="60" rx="10" class="tracking"/>
-  <text x="880" y="600" class="node-text">🎯 DeepSORT</text>
-  <text x="880" y="615" class="node-small">Unique Object IDs</text>
-  <text x="880" y="630" class="node-small">People Counting</text>
+  <rect x="810" y="550" width="140" height="60" rx="10" class="tracking"/>
+  <text x="880" y="570" class="node-text">🎯 DeepSORT</text>
+  <text x="880" y="585" class="node-small">Unique Object IDs</text>
+  <text x="880" y="600" class="node-small">People Counting</text>
   
   <!-- Image Annotation -->
-  <rect x="250" y="680" width="140" height="50" rx="10" class="output"/>
-  <text x="320" y="700" class="node-text">🖊️ Image Annotation</text>
-  <text x="320" y="715" class="node-small">Bounding Boxes</text>
+  <rect x="250" y="650" width="140" height="50" rx="10" class="output"/>
+  <text x="320" y="670" class="node-text">🖊️ Image Annotation</text>
+  <text x="320" y="685" class="node-small">Bounding Boxes</text>
   
   <!-- Video Annotation -->
-  <rect x="750" y="680" width="140" height="50" rx="10" class="output"/>
-  <text x="820" y="700" class="node-text">🖊️ Video Annotation</text>
-  <text x="820" y="715" class="node-small">All Frames</text>
+  <rect x="750" y="650" width="140" height="50" rx="10" class="output"/>
+  <text x="820" y="670" class="node-text">🖊️ Video Annotation</text>
+  <text x="820" y="685" class="node-small">All Frames</text>
   
   <!-- Result Generation -->
-  <rect x="480" y="780" width="240" height="50" rx="10" class="output"/>
-  <text x="600" y="800" class="node-text">📊 Generate Results</text>
-  <text x="600" y="815" class="node-small">JSON Response + Annotated Media</text>
+  <rect x="480" y="750" width="240" height="50" rx="10" class="output"/>
+  <text x="600" y="770" class="node-text">📊 Generate Results</text>
+  <text x="600" y="785" class="node-small">JSON Response + Annotated Media</text>
   
   <!-- Final Display -->
-  <ellipse cx="600" cy="870" rx="120" ry="25" class="start-end"/>
-  <text x="600" y="865" class="node-text">🖥️ Display Results</text>
-  <text x="600" y="880" class="node-small">Web Interface</text>
+  <ellipse cx="600" cy="840" rx="120" ry="25" class="start-end"/>
+  <text x="600" y="835" class="node-text">🖥️ Display Results</text>
+  <text x="600" y="850" class="node-small">Web Interface</text>
   
   <!-- Error Handling -->
-  <rect x="50" y="200" width="120" height="40" rx="5" class="error"/>
-  <text x="110" y="215" class="node-small" fill="white">❌ File Type Error</text>
-  <text x="110" y="230" class="node-small" fill="white">Invalid Format</text>
+  <rect x="50" y="170" width="120" height="40" rx="5" class="error"/>
+  <text x="110" y="185" class="node-small" fill="white">❌ File Type Error</text>
+  <text x="110" y="200" class="node-small" fill="white">Invalid Format</text>
   
-  <rect x="50" y="400" width="120" height="40" rx="5" class="error"/>
-  <text x="110" y="415" class="node-small" fill="white">❌ LLM Error</text>
-  <text x="110" y="430" class="node-small" fill="white">Processing Failed</text>
+  <rect x="50" y="370" width="120" height="40" rx="5" class="error"/>
+  <text x="110" y="385" class="node-small" fill="white">❌ LLM Error</text>
+  <text x="110" y="400" class="node-small" fill="white">Processing Failed</text>
   
-  <rect x="50" y="600" width="120" height="40" rx="5" class="error"/>
-  <text x="110" y="615" class="node-small" fill="white">❌ Detection Error</text>
-  <text x="110" y="630" class="node-small" fill="white">Model Failed</text>
+  <rect x="50" y="570" width="120" height="40" rx="5" class="error"/>
+  <text x="110" y="585" class="node-small" fill="white">❌ Detection Error</text>
+  <text x="110" y="600" class="node-small" fill="white">Model Failed</text>
   
-  <rect x="50" y="720" width="120" height="40" rx="5" class="error"/>
-  <text x="110" y="735" class="node-small" fill="white">⚠️ Error Response</text>
-  <text x="110" y="750" class="node-small" fill="white">User Notification</text>
+  <rect x="50" y="690" width="120" height="40" rx="5" class="error"/>
+  <text x="110" y="705" class="node-small" fill="white">⚠️ Error Response</text>
+  <text x="110" y="720" class="node-small" fill="white">User Notification</text>
   
   <!-- Main Flow Arrows -->
-  <line x1="600" y1="125" x2="600" y2="170" class="arrow"/>
-  <line x1="575" y1="200" x2="370" y2="280" class="decision-arrow"/>
-  <line x1="625" y1="200" x2="730" y2="280" class="decision-arrow"/>
-  <line x1="370" y1="330" x2="320" y2="380" class="arrow"/>
-  <line x1="730" y1="330" x2="680" y2="380" class="arrow"/>
-  <line x1="320" y1="440" x2="320" y2="480" class="arrow"/>
-  <line x1="680" y1="440" x2="680" y2="480" class="arrow"/>
-  <line x1="320" y1="530" x2="320" y2="580" class="arrow"/>
-  <line x1="680" y1="530" x2="680" y2="580" class="arrow"/>
-  <line x1="750" y1="605" x2="810" y2="605" class="arrow"/>
-  <line x1="320" y1="630" x2="320" y2="680" class="arrow"/>
-  <line x1="880" y1="640" x2="820" y2="680" class="arrow"/>
-  <line x1="390" y1="705" x2="480" y2="780" class="arrow"/>
-  <line x1="750" y1="705" x2="720" y2="780" class="arrow"/>
-  <line x1="600" y1="830" x2="600" y2="845" class="arrow"/>
+  <line x1="600" y1="110" x2="600" y2="140" class="arrow"/>
+  <line x1="585" y1="170" x2="370" y2="250" class="decision-arrow"/>
+  <line x1="615" y1="170" x2="730" y2="250" class="decision-arrow"/>
+  <line x1="370" y1="300" x2="320" y2="350" class="arrow"/>
+  <line x1="730" y1="300" x2="680" y2="350" class="arrow"/>
+  <line x1="320" y1="410" x2="320" y2="450" class="arrow"/>
+  <line x1="680" y1="410" x2="680" y2="450" class="arrow"/>
+  <line x1="320" y1="500" x2="320" y2="550" class="arrow"/>
+  <line x1="680" y1="500" x2="680" y2="550" class="arrow"/>
+  <line x1="750" y1="575" x2="810" y2="575" class="arrow"/>
+  <line x1="320" y1="600" x2="320" y2="650" class="arrow"/>
+  <line x1="880" y1="610" x2="820" y2="650" class="arrow"/>
+  <line x1="390" y1="675" x2="480" y2="750" class="arrow"/>
+  <line x1="750" y1="675" x2="720" y2="750" class="arrow"/>
+  <line x1="600" y1="800" x2="600" y2="815" class="arrow"/>
   
   <!-- Error Flow Arrows -->
-  <line x1="550" y1="200" x2="170" y2="220" class="error-arrow"/>
-  <line x1="250" y1="410" x2="170" y2="420" class="error-arrow"/>
-  <line x1="250" y1="605" x2="170" y2="620" class="error-arrow"/>
-  <line x1="110" y1="760" x2="500" y2="850" class="error-arrow"/>
+  <line x1="560" y1="170" x2="170" y2="190" class="error-arrow"/>
+  <line x1="250" y1="380" x2="170" y2="390" class="error-arrow"/>
+  <line x1="250" y1="575" x2="170" y2="590" class="error-arrow"/>
+  <line x1="110" y1="730" x2="500" y2="820" class="error-arrow"/>
   
   <!-- Branch Labels -->
-  <text x="450" y="250" style="font: 12px Arial; fill: #e67e22; font-weight: bold;">Image</text>
-  <text x="750" y="250" style="font: 12px Arial; fill: #e67e22; font-weight: bold;">Video</text>
-  <text x="300" y="190" style="font: 10px Arial; fill: #e74c3c;">Invalid</text>
+  <text x="450" y="220" style="font: 11px Arial; fill: #e67e22; font-weight: bold;">Image</text>
+  <text x="750" y="220" style="font: 11px Arial; fill: #e67e22; font-weight: bold;">Video</text>
+  <text x="300" y="160" style="font: 9px Arial; fill: #e74c3c;">Invalid</text>
   
   <!-- DeepSORT Highlight -->
-  <rect x="810" y="520" width="140" height="25" rx="5" fill="#e74c3c" opacity="0.8"/>
-  <text x="880" y="535" style="font: bold 10px Arial; text-anchor: middle; fill: white;">🌟 DEEPSORT SPECIAL FEATURE</text>
-  <text x="880" y="550" style="font: 8px Arial; text-anchor: middle; fill: white;">Unique People Counting</text>
+  <rect x="810" y="490" width="140" height="25" rx="5" fill="#e74c3c" opacity="0.8"/>
+  <text x="880" y="505" style="font: bold 9px Arial; text-anchor: middle; fill: white;">🌟 DEEPSORT SPECIAL FEATURE</text>
+  <text x="880" y="520" style="font: 7px Arial; text-anchor: middle; fill: white;">Unique People Counting</text>
   
   <!-- Technology Stack Labels -->
   <rect x="980" y="100" width="200" height="200" rx="5" fill="none" stroke="#34495e" stroke-width="2"/>
-  <text x="990" y="120" style="font: bold 14px Arial; fill: #2c3e50;">🔧 Technology Stack</text>
+  <text x="990" y="120" style="font: bold 13px Arial; fill: #2c3e50;">🔧 Technology Stack</text>
   
-  <text x="1000" y="140" style="font: 11px Arial; fill: #34495e;">🧠 Groq Llama-4-Scout-17B</text>
-  <text x="1000" y="160" style="font: 11px Arial; fill: #34495e;">🔍 D-Fine Object Detection</text>
-  <text x="1000" y="180" style="font: 11px Arial; fill: #34495e;">🎯 DeepSORT Tracking</text>
-  <text x="1000" y="200" style="font: 11px Arial; fill: #34495e;">📷 OpenCV Processing</text>
-  <text x="1000" y="220" style="font: 11px Arial; fill: #34495e;">🐍 Flask Web Framework</text>
-  <text x="1000" y="240" style="font: 11px Arial; fill: #34495e;">💾 Secure File Management</text>
-  <text x="1000" y="260" style="font: 11px Arial; fill: #34495e;">⚡ Real-time Processing</text>
-  <text x="1000" y="280" style="font: 11px Arial; fill: #34495e;">🎨 Modern Web Interface</text>
+  <text x="1000" y="140" style="font: 10px Arial; fill: #34495e;">🧠 Groq Llama-4-Scout-17B</text>
+  <text x="1000" y="160" style="font: 10px Arial; fill: #34495e;">🔍 D-Fine Object Detection</text>
+  <text x="1000" y="180" style="font: 10px Arial; fill: #34495e;">🎯 DeepSORT Tracking</text>
+  <text x="1000" y="200" style="font: 10px Arial; fill: #34495e;">📷 OpenCV Processing</text>
+  <text x="1000" y="220" style="font: 10px Arial; fill: #34495e;">🐍 Flask Web Framework</text>
+  <text x="1000" y="240" style="font: 10px Arial; fill: #34495e;">💾 Secure File Management</text>
+  <text x="1000" y="260" style="font: 10px Arial; fill: #34495e;">⚡ Real-time Processing</text>
+  <text x="1000" y="280" style="font: 10px Arial; fill: #34495e;">🎨 Modern Web Interface</text>
   
   <!-- Performance Notes -->
   <rect x="980" y="320" width="200" height="160" rx="5" fill="none" stroke="#34495e" stroke-width="2"/>
-  <text x="990" y="340" style="font: bold 14px Arial; fill: #2c3e50;">⚡ Performance</text>
+  <text x="990" y="340" style="font: bold 13px Arial; fill: #2c3e50;">⚡ Performance</text>
   
-  <text x="1000" y="360" style="font: 10px Arial; fill: #34495e;">📊 Image: ~1-3 seconds</text>
-  <text x="1000" y="380" style="font: 10px Arial; fill: #34495e;">🎥 Video: ~5-15 sec/10s clip</text>
-  <text x="1000" y="400" style="font: 10px Arial; fill: #34495e;">🧠 LLM: ~0.5-1 second</text>
-  <text x="1000" y="420" style="font: 10px Arial; fill: #34495e;">🎯 Accuracy: >90%</text>
-  <text x="1000" y="440" style="font: 10px Arial; fill: #34495e;">🔍 Tracking: >85%</text>
-  <text x="1000" y="460" style="font: 10px Arial; fill: #34495e;">📍 ROI Detection: >80%</text>
+  <text x="1000" y="360" style="font: 9px Arial; fill: #34495e;">📊 Image: ~1-3 seconds</text>
+  <text x="1000" y="380" style="font: 9px Arial; fill: #34495e;">🎥 Video: ~5-15 sec/10s clip</text>
+  <text x="1000" y="400" style="font: 9px Arial; fill: #34495e;">🧠 LLM: ~0.5-1 second</text>
+  <text x="1000" y="420" style="font: 9px Arial; fill: #34495e;">🎯 Accuracy: &gt;90%</text>
+  <text x="1000" y="440" style="font: 9px Arial; fill: #34495e;">🔍 Tracking: &gt;85%</text>
+  <text x="1000" y="460" style="font: 9px Arial; fill: #34495e;">📍 ROI Detection: &gt;80%</text>
   
   <!-- Key Features Box -->
   <rect x="980" y="500" width="200" height="120" rx="5" fill="none" stroke="#34495e" stroke-width="2"/>
-  <text x="990" y="520" style="font: bold 14px Arial; fill: #2c3e50;">🌟 Special Features</text>
+  <text x="990" y="520" style="font: bold 13px Arial; fill: #2c3e50;">🌟 Special Features</text>
   
-  <text x="1000" y="540" style="font: 10px Arial; fill: #34495e;">🎯 Unique People Counting</text>
-  <text x="1000" y="560" style="font: 10px Arial; fill: #34495e;">📝 Natural Language Input</text>
-  <text x="1000" y="580" style="font: 10px Arial; fill: #34495e;">🎨 ROI-based Detection</text>
-  <text x="1000" y="600" style="font: 10px Arial; fill: #34495e;">⚡ Multi-format Support</text>
+  <text x="1000" y="540" style="font: 9px Arial; fill: #34495e;">🎯 Unique People Counting</text>
+  <text x="1000" y="560" style="font: 9px Arial; fill: #34495e;">📝 Natural Language Input</text>
+  <text x="1000" y="580" style="font: 9px Arial; fill: #34495e;">🎨 ROI-based Detection</text>
+  <text x="1000" y="600" style="font: 9px Arial; fill: #34495e;">⚡ Multi-format Support</text>
 </svg> 
