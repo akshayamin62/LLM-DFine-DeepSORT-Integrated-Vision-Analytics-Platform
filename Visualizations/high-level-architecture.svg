@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font: bold 24px Arial; text-anchor: middle; fill: #2c3e50; }
+      .subtitle { font: bold 18px Arial; text-anchor: middle; fill: #34495e; }
+      .node-text { font: 12px Arial; text-anchor: middle; fill: white; font-weight: bold; }
+      .node-small { font: 10px Arial; text-anchor: middle; fill: white; }
+      .arrow { stroke: #7f8c8d; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .decision { stroke: #e67e22; stroke-width: 2; fill: #f39c12; }
+      .frontend { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .backend { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; }
+      .ai { fill: #e67e22; stroke: #d35400; stroke-width: 2; }
+      .storage { fill: #27ae60; stroke: #229954; stroke-width: 2; }
+      .processing { fill: #f1c40f; stroke: #f39c12; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="30" class="title">LLM-DFine-DeepSORT-Object-Detection-Framework</text>
+  <text x="600" y="55" class="subtitle">High-Level Architecture</text>
+  
+  <!-- Frontend Layer -->
+  <rect x="50" y="100" width="200" height="80" rx="10" class="frontend"/>
+  <text x="150" y="125" class="node-text">User Interface</text>
+  <text x="150" y="145" class="node-small">Web Frontend</text>
+  <text x="150" y="160" class="node-small">📱 Responsive Design</text>
+  
+  <!-- Flask Application -->
+  <rect x="350" y="100" width="200" height="80" rx="10" class="backend"/>
+  <text x="450" y="125" class="node-text">Flask Application</text>
+  <text x="450" y="145" class="node-small">app.py</text>
+  <text x="450" y="160" class="node-small">🐍 Python Framework</text>
+  
+  <!-- Request Handler -->
+  <rect x="650" y="100" width="200" height="80" rx="10" class="backend"/>
+  <text x="750" y="125" class="node-text">Request Handler</text>
+  <text x="750" y="145" class="node-small">Upload & Process</text>
+  <text x="750" y="160" class="node-small">📤 RESTful API</text>
+  
+  <!-- LLM Service -->
+  <rect x="200" y="250" width="200" height="80" rx="10" class="ai"/>
+  <text x="300" y="275" class="node-text">LLM Service</text>
+  <text x="300" y="295" class="node-small">Groq Llama AI</text>
+  <text x="300" y="310" class="node-small">🧠 NLP Processing</text>
+  
+  <!-- File Manager -->
+  <rect x="500" y="250" width="200" height="80" rx="10" class="storage"/>
+  <text x="600" y="275" class="node-text">File Manager</text>
+  <text x="600" y="295" class="node-small">Upload/Output</text>
+  <text x="600" y="310" class="node-small">📁 File Handling</text>
+  
+  <!-- Parameter Extraction -->
+  <rect x="200" y="400" width="200" height="80" rx="10" class="ai"/>
+  <text x="300" y="425" class="node-text">Parameter Extraction</text>
+  <text x="300" y="445" class="node-small">Objects, ROI, Confidence</text>
+  <text x="300" y="460" class="node-small">🎯 Smart Parsing</text>
+  
+  <!-- D-Fine Service -->
+  <rect x="500" y="400" width="200" height="80" rx="10" class="ai"/>
+  <text x="600" y="425" class="node-text">D-Fine Service</text>
+  <text x="600" y="445" class="node-small">Object Detection</text>
+  <text x="600" y="460" class="node-small">🔍 State-of-the-Art</text>
+  
+  <!-- Computer Vision -->
+  <rect x="800" y="400" width="200" height="80" rx="10" class="processing"/>
+  <text x="900" y="425" class="node-text">Computer Vision</text>
+  <text x="900" y="445" class="node-small">OpenCV Processing</text>
+  <text x="900" y="460" class="node-small">📷 Image/Video</text>
+  
+  <!-- Media Type Decision -->
+  <polygon points="600,550 550,580 600,610 650,580" class="decision"/>
+  <text x="600" y="585" class="node-small" fill="white">Media Type?</text>
+  
+  <!-- Image Processing -->
+  <rect x="400" y="650" width="150" height="60" rx="10" class="ai"/>
+  <text x="475" y="675" class="node-small" fill="white">Single Frame</text>
+  <text x="475" y="690" class="node-small" fill="white">Detection</text>
+  
+  <!-- Video Processing -->
+  <rect x="650" y="650" width="150" height="60" rx="10" class="ai"/>
+  <text x="725" y="675" class="node-small" fill="white">Multi-Frame</text>
+  <text x="725" y="690" class="node-small" fill="white">Processing</text>
+  
+  <!-- DeepSORT Tracking -->
+  <rect x="850" y="650" width="150" height="60" rx="10" class="ai"/>
+  <text x="925" y="670" class="node-small" fill="white">DeepSORT</text>
+  <text x="925" y="685" class="node-small" fill="white">Unique Tracking</text>
+  <text x="925" y="700" class="node-small" fill="white">🎯 People Count</text>
+  
+  <!-- Result Processing -->
+  <rect x="500" y="750" width="200" height="40" rx="10" class="processing"/>
+  <text x="600" y="775" class="node-small" fill="white">Result Processing & Visualization</text>
+  
+  <!-- Arrows -->
+  <line x1="250" y1="140" x2="350" y2="140" class="arrow"/>
+  <line x1="550" y1="140" x2="650" y2="140" class="arrow"/>
+  <line x1="750" y1="180" x2="300" y2="250" class="arrow"/>
+  <line x1="750" y1="180" x2="600" y2="250" class="arrow"/>
+  <line x1="300" y1="330" x2="300" y2="400" class="arrow"/>
+  <line x1="400" y1="440" x2="500" y2="440" class="arrow"/>
+  <line x1="700" y1="440" x2="800" y2="440" class="arrow"/>
+  <line x1="900" y1="480" x2="600" y2="550" class="arrow"/>
+  <line x1="575" y1="580" x2="475" y2="650" class="arrow"/>
+  <line x1="625" y1="580" x2="725" y2="650" class="arrow"/>
+  <line x1="800" y1="680" x2="850" y2="680" class="arrow"/>
+  <line x1="725" y1="710" x2="600" y2="750" class="arrow"/>
+  <line x1="475" y1="710" x2="550" y2="750" class="arrow"/>
+  <line x1="925" y1="710" x2="650" y2="750" class="arrow"/>
+  
+  <!-- Labels for decision branches -->
+  <text x="500" y="640" class="node-small" fill="#e67e22">Image</text>
+  <text x="680" y="640" class="node-small" fill="#e67e22">Video</text>
+  
+  <!-- Legend -->
+  <rect x="50" y="700" width="300" height="80" rx="5" fill="none" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="60" y="720" style="font: bold 14px Arial; fill: #2c3e50;">Key Features:</text>
+  <text x="60" y="740" style="font: 11px Arial; fill: #34495e;">🧠 Natural Language Processing</text>
+  <text x="60" y="755" style="font: 11px Arial; fill: #34495e;">🔍 Advanced Object Detection</text>
+  <text x="60" y="770" style="font: 11px Arial; fill: #34495e;">🎯 DeepSORT Unique Tracking</text>
+  
+  <text x="200" y="740" style="font: 11px Arial; fill: #34495e;">📷 Multi-format Support</text>
+  <text x="200" y="755" style="font: 11px Arial; fill: #34495e;">⚡ Real-time Processing</text>
+  <text x="200" y="770" style="font: 11px Arial; fill: #34495e;">🎨 Modern Web Interface</text>
+</svg> 

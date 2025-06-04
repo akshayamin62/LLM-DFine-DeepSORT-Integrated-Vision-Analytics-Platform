@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Object Detection</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .upload-area {
+            border: 2px dashed #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            border-color: #667eea;
+            background-color: #f8fafc;
+        }
+        .upload-area.dragover {
+            border-color: #667eea;
+            background-color: #eef2ff;
+        }
+        .loading {
+            display: none;
+        }
+        .loading.show {
+            display: block;
+        }
+        .result-card {
+            display: none;
+        }
+        .result-card.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">
+                <i class="fas fa-eye mr-3"></i>AI-Powered Object Detection
+            </h1>
+            <p class="text-xl text-white opacity-90">
+                Describe what you want to detect, and let AI configure D-Fine for optimal results
+            </p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="max-w-4xl mx-auto glass-effect rounded-2xl p-8 shadow-2xl">
+            <!-- Upload Form -->
+            <form id="uploadForm" enctype="multipart/form-data" class="space-y-6">
+                <!-- Prompt Input -->
+                <div>
+                    <label class="block text-white text-lg font-semibold mb-2">
+                        <i class="fas fa-comment-dots mr-2"></i>Describe what you want to detect:
+                    </label>
+                    <textarea
+                        id="prompt"
+                        name="prompt"
+                        rows="3"
+                        placeholder="e.g., 'Find all people in the image with high accuracy' or 'Detect cars and motorcycles on the road' or 'Look for cats and dogs in this photo'"
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- File Upload -->
+                <div>
+                    <label class="block text-white text-lg font-semibold mb-2">
+                        <i class="fas fa-upload mr-2"></i>Upload Image or Video:
+                    </label>
+                    <div class="upload-area rounded-lg p-8 text-center cursor-pointer" id="uploadArea">
+                        <input type="file" id="fileInput" name="file" accept="image/*,video/*" class="hidden">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-lg text-gray-600 mb-2">Drop your file here or click to browse</p>
+                        <p class="text-sm text-gray-500">Supports: JPG, PNG, GIF, MP4, AVI, MOV (Max 16MB)</p>
+                        <div id="filePreview" class="mt-4 hidden">
+                            <img id="imagePreview" class="max-w-xs mx-auto rounded-lg shadow-lg" style="display: none;">
+                            <p id="fileName" class="text-sm text-gray-600 mt-2"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    id="submitBtn"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+                >
+                    <i class="fas fa-magic mr-2"></i>Analyze with AI
+                </button>
+            </form>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading text-center py-8">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
+                <p class="text-white text-lg">AI is analyzing your request and processing the image...</p>
+                <div class="mt-4 space-y-2">
+                    <div class="bg-white bg-opacity-20 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
+                    </div>
+                    <p class="text-white text-sm opacity-75">This may take a few moments...</p>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mt-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span id="errorText"></span>
+            </div>
+
+            <!-- Results -->
+            <div id="results" class="result-card mt-8">
+                <h2 class="text-2xl font-bold text-white mb-6">
+                    <i class="fas fa-chart-bar mr-2"></i>Detection Results
+                </h2>
+                
+                <!-- Results Grid -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Output Image -->
+                    <div class="bg-white rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                            <i class="fas fa-image mr-2"></i>Detected Objects
+                        </h3>
+                        <img id="outputImage" class="w-full rounded-lg shadow-lg" alt="Detection Results">
+                    </div>
+
+                    <!-- Detection Summary -->
+                    <div class="space-y-4">
+                        <!-- Stats Card -->
+                        <div class="bg-white rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                                <i class="fas fa-chart-pie mr-2"></i>Summary
+                            </h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div id="totalObjects" class="text-3xl font-bold text-blue-600">0</div>
+                                    <div class="text-sm text-gray-600">Objects Found</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="confidence" class="text-3xl font-bold text-green-600">0%</div>
+                                    <div class="text-sm text-gray-600">Avg Confidence</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Parameters Used -->
+                        <div class="bg-white rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                                <i class="fas fa-cogs mr-2"></i>AI Configuration
+                            </h3>
+                            <div id="aiParameters" class="text-sm text-gray-600 space-y-1"></div>
+                        </div>
+
+                        <!-- Detected Objects List -->
+                        <div class="bg-white rounded-lg p-4 max-h-64 overflow-y-auto">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                                <i class="fas fa-list mr-2"></i>Detected Objects
+                            </h3>
+                            <div id="objectsList" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM Reasoning -->
+                <div class="bg-white rounded-lg p-4 mt-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-brain mr-2"></i>AI Reasoning
+                    </h3>
+                    <p id="aiReasoning" class="text-gray-600"></p>
+                </div>
+
+                <!-- Reset Button -->
+                <button
+                    id="resetBtn"
+                    class="w-full mt-6 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+                >
+                    <i class="fas fa-redo mr-2"></i>Analyze Another File
+                </button>
+            </div>
+        </div>
+
+        <!-- Frame Viewer Modal -->
+        <div id="frameModal" class="fixed inset-0 bg-black bg-opacity-75 hidden z-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-6 max-w-4xl max-h-screen overflow-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Frame Viewer</h3>
+                    <button onclick="closeFrameModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <img id="modalFrameImage" class="w-full max-h-96 object-contain" alt="Full Frame">
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-white opacity-75">
+            <p>Powered by D-Fine + Groq Llama AI | Built with ❤️ for accurate object detection</p>
+        </div>
+    </div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements - with error checking
+            const uploadForm = document.getElementById('uploadForm');
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const filePreview = document.getElementById('filePreview');
+            const imagePreview = document.getElementById('imagePreview');
+            const fileName = document.getElementById('fileName');
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const resetBtn = document.getElementById('resetBtn');
+
+            // Check if all required elements exist
+            if (!uploadForm || !uploadArea || !fileInput || !loading || !results || !errorMessage) {
+                console.error('Required DOM elements not found');
+                return;
+            }
+
+            // File upload handling
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (uploadArea.classList) {
+                    uploadArea.classList.add('dragover');
+                }
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                if (uploadArea.classList) {
+                    uploadArea.classList.remove('dragover');
+                }
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (uploadArea.classList) {
+                    uploadArea.classList.remove('dragover');
+                }
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+
+            function handleFileSelect(file) {
+                if (fileName) {
+                    fileName.textContent = file.name;
+                }
+                if (filePreview && filePreview.classList) {
+                    filePreview.classList.remove('hidden');
+                }
+                
+                if (file.type.startsWith('image/') && imagePreview) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else if (imagePreview) {
+                    imagePreview.style.display = 'none';
+                }
+            }
+
+            // Form submission
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Custom validation
+                const promptValue = document.getElementById('prompt').value.trim();
+                const fileValue = fileInput.files.length;
+                
+                if (!promptValue) {
+                    showError('Please provide a description of what you want to detect.');
+                    return;
+                }
+                
+                if (!fileValue) {
+                    showError('Please select an image or video file to analyze.');
+                    return;
+                }
+                
+                const formData = new FormData(uploadForm);
+                
+                // Show loading state
+                uploadForm.style.display = 'none';
+                if (loading && loading.classList) {
+                    loading.classList.add('show');
+                }
+                if (errorMessage && errorMessage.classList) {
+                    errorMessage.classList.add('hidden');
+                }
+                const resultsDiv = document.getElementById('results');
+                if (resultsDiv && resultsDiv.classList) {
+                    resultsDiv.classList.remove('show');
+                }
+                
+                try {
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        displayResults(data);
+                    } else {
+                        showError(data.error || 'Processing failed');
+                    }
+                } catch (error) {
+                    showError('Network error: ' + error.message);
+                } finally {
+                    if (loading && loading.classList) {
+                        loading.classList.remove('show');
+                    }
+                }
+            });
+
+            function displayResults(data) {
+                const { results, parameters, prompt } = data;
+                
+                // Display output image with proper loading
+                const outputImage = document.getElementById('outputImage');
+                if (outputImage) {
+                    outputImage.onload = function() {
+                        console.log('Detection image loaded successfully');
+                    };
+                    outputImage.onerror = function() {
+                        console.error('Failed to load detection image');
+                        showError('Failed to load detection results image');
+                    };
+                    outputImage.src = `/outputs/${results.filename}?t=${Date.now()}`;
+                }
+                
+                // Display statistics
+                const totalObjects = document.getElementById('totalObjects');
+                if (totalObjects) {
+                    const objectCount = results.roi_objects || results.total_objects;
+                    totalObjects.textContent = objectCount;
+                }
+                
+                // Calculate average confidence
+                let avgConfidence = 0;
+                if (results.detections && results.detections.length > 0) {
+                    const totalConf = results.detections.reduce((sum, det) => sum + det.confidence, 0);
+                    avgConfidence = Math.round((totalConf / results.detections.length) * 100);
+                }
+                const confidenceElement = document.getElementById('confidence');
+                if (confidenceElement) {
+                    confidenceElement.textContent = avgConfidence + '%';
+                }
+                
+                // Display AI parameters
+                const paramsDiv = document.getElementById('aiParameters');
+                if (paramsDiv) {
+                    let paramHtml = `
+                        <div><strong>Confidence Threshold:</strong> ${parameters.confidence_threshold || 0.3}</div>
+                        <div><strong>Target Classes:</strong> ${Array.isArray(parameters.classes_to_detect) ? parameters.classes_to_detect.join(', ') : parameters.classes_to_detect || 'all'}</div>
+                    `;
+                    
+                    // Add ROI information
+                    if (parameters.roi_detection) {
+                        paramHtml += `
+                            <div><strong>ROI Detection:</strong> ${parameters.roi_type}</div>
+                            <div><strong>Area Filter:</strong> ${parameters.area_filter || 'none'}</div>
+                        `;
+                    }
+                    
+                    // Add video tracking information
+                    if (parameters.tracking_mode && results.video_analysis) {
+                        paramHtml += `
+                            <div><strong>Video Tracking:</strong> Enabled</div>
+                            <div><strong>Count Direction:</strong> ${parameters.count_direction}</div>
+                        `;
+                    }
+                    
+                    paramsDiv.innerHTML = paramHtml;
+                }
+                
+                // Display detected objects
+                const objectsList = document.getElementById('objectsList');
+                if (objectsList) {
+                    if (results.detections && results.detections.length > 0) {
+                        objectsList.innerHTML = results.detections.map((det, index) => `
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <div>
+                                    <span class="font-medium">${det.class_name}</span>
+                                    ${det.in_roi ? '<span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded ml-2">ROI</span>' : ''}
+                                    <div class="text-xs text-gray-400">
+                                        Position: (${Math.round(det.center.x)}, ${Math.round(det.center.y)})
+                                        Size: ${Math.round(det.size.width)}×${Math.round(det.size.height)}
+                                    </div>
+                                </div>
+                                <span class="text-sm text-gray-500">${det.confidence ? (det.confidence * 100).toFixed(1) : 0}%</span>
+                            </div>
+                        `).join('');
+                    } else {
+                        objectsList.innerHTML = '<p class="text-gray-500">No objects detected</p>';
+                    }
+                }
+                
+                // Display video analysis if available
+                if (results.video_analysis) {
+                    const videoAnalysis = results.video_analysis;
+                    const videoInfo = document.createElement('div');
+                    videoInfo.className = 'bg-blue-50 rounded-lg p-4 mt-4';
+                    videoInfo.innerHTML = `
+                        <h4 class="font-semibold text-blue-800 mb-2">📹 Video Analysis (High-FPS Tracking)</h4>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div><strong>Unique People:</strong> ${videoAnalysis.unique_people_detected || 0}</div>
+                            <div><strong>Total Detections:</strong> ${videoAnalysis.total_detections || 0}</div>
+                            <div><strong>Total Tracks Created:</strong> ${videoAnalysis.tracking_stats?.total_tracks || 0}</div>
+                            <div><strong>Frames Processed:</strong> ${videoAnalysis.frames_processed}</div>
+                            <div><strong>Duration:</strong> ${videoAnalysis.duration_seconds ? videoAnalysis.duration_seconds.toFixed(1) : 0}s</div>
+                            <div><strong>Original FPS:</strong> ${videoAnalysis.fps ? videoAnalysis.fps.toFixed(1) : 0}</div>
+                            <div><strong>Processing FPS:</strong> ${videoAnalysis.processing_fps || 20}</div>
+                            <div><strong>Output FPS:</strong> ${videoAnalysis.output_fps || videoAnalysis.processing_fps || 20}</div>
+                        </div>
+                        ${videoAnalysis.roi_enabled ? `
+                            <div class="mt-2 p-2 bg-yellow-100 rounded text-xs">
+                                <strong>ROI Analysis:</strong> ${videoAnalysis.roi_type} region tracking enabled
+                            </div>
+                        ` : ''}
+                        <div class="mt-2 p-2 bg-green-100 rounded text-xs">
+                            <strong>High-FPS Benefits:</strong> ${videoAnalysis.processing_fps || 20} FPS processing for superior DeepSORT accuracy while preserving original video duration
+                        </div>
+                        ${videoAnalysis.output_video ? `
+                            <div class="mt-3 p-3 bg-purple-100 rounded">
+                                <h5 class="font-semibold text-purple-800 mb-2">🎥 Processed Video Output</h5>
+                                <video controls class="w-full max-h-64 rounded border" preload="metadata">
+                                    <source src="/outputs/${videoAnalysis.output_video}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="mt-2 text-xs text-gray-600">
+                                    📥 <a href="/outputs/${videoAnalysis.output_video}" download class="text-blue-500 hover:underline">
+                                        Download Processed Video
+                                    </a>
+                                    <span class="ml-2">• Contains all detection boxes and track IDs</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                    `;
+                    
+                    // Add video analysis after parameters
+                    const paramsDiv = document.getElementById('aiParameters');
+                    if (paramsDiv && paramsDiv.parentNode) {
+                        paramsDiv.parentNode.insertBefore(videoInfo, paramsDiv.nextSibling);
+                    }
+                }
+                
+                // Display processed frames if available
+                if (results.processed_frames && results.processed_frames.length > 0) {
+                    const framesContainer = document.createElement('div');
+                    framesContainer.className = 'bg-white rounded-lg p-4 mt-6';
+                    framesContainer.innerHTML = `
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                            <i class="fas fa-film mr-2"></i>Processed Video Frames (${results.processed_frames.length} frames saved)
+                        </h3>
+                        <div class="mb-3 text-sm text-gray-600">
+                            📁 All frames are saved in the outputs folder and can be downloaded individually
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-96 overflow-y-auto">
+                            ${results.processed_frames.map(frame => `
+                                <div class="text-center border rounded-lg p-2 hover:shadow-lg transition-shadow">
+                                    <img src="/outputs/${frame.filename}?t=${Date.now()}" 
+                                         class="w-full h-24 object-cover rounded cursor-pointer hover:scale-105 transition-transform"
+                                         onclick="showFullFrame('${frame.filename}', ${frame.frame_number})"
+                                         alt="Frame ${frame.frame_number}">
+                                    <div class="text-xs text-gray-700 font-semibold mt-1">
+                                        Frame ${frame.frame_number}
+                                    </div>
+                                    <div class="text-xs text-gray-500">
+                                        Time: ${frame.timestamp ? frame.timestamp.toFixed(1) : 0}s
+                                    </div>
+                                    <div class="text-xs text-blue-600">
+                                        Detections: ${frame.detections_count}
+                                    </div>
+                                    <div class="text-xs text-green-600">
+                                        Unique People: ${frame.unique_people_so_far}
+                                    </div>
+                                    <div class="text-xs text-purple-600">
+                                        Active Tracks: ${frame.active_tracks || 0}
+                                    </div>
+                                    <a href="/outputs/${frame.filename}" download class="text-xs text-blue-500 hover:underline mt-1 block">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="mt-3 p-2 bg-gray-50 rounded text-xs text-gray-600">
+                            💡 <strong>Tips:</strong> Click any frame to view full size. Each frame shows detection boxes with track IDs. 
+                            Download individual frames or view the complete sequence to analyze object movement.
+                        </div>
+                    `;
+                    
+                    // Add frames container after results
+                    const resultsDiv = document.getElementById('results');
+                    if (resultsDiv) {
+                        resultsDiv.appendChild(framesContainer);
+                    }
+                }
+                
+                // Display AI reasoning
+                const aiReasoning = document.getElementById('aiReasoning');
+                if (aiReasoning) {
+                    aiReasoning.textContent = parameters.reasoning || 'No reasoning provided';
+                }
+                
+                // Show results with a slight delay to ensure image loads
+                setTimeout(() => {
+                    const resultsDiv = document.getElementById('results');
+                    if (resultsDiv && resultsDiv.classList) {
+                        resultsDiv.classList.add('show');
+                    }
+                }, 100);
+            }
+
+            function showError(message) {
+                if (errorText) {
+                    errorText.textContent = message;
+                }
+                if (errorMessage && errorMessage.classList) {
+                    errorMessage.classList.remove('hidden');
+                }
+                uploadForm.style.display = 'block';
+            }
+
+            // Reset button
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    uploadForm.reset();
+                    uploadForm.style.display = 'block';
+                    const resultsDiv = document.getElementById('results');
+                    if (resultsDiv && resultsDiv.classList) {
+                        resultsDiv.classList.remove('show');
+                    }
+                    if (errorMessage && errorMessage.classList) {
+                        errorMessage.classList.add('hidden');
+                    }
+                    if (filePreview && filePreview.classList) {
+                        filePreview.classList.add('hidden');
+                    }
+                    if (imagePreview) {
+                        imagePreview.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Frame modal functions
+        function showFullFrame(filename, frameNumber) {
+            const modal = document.getElementById('frameModal');
+            const modalImage = document.getElementById('modalFrameImage');
+            const modalTitle = modal.querySelector('h3');
+            
+            if (modal && modalImage) {
+                modalImage.src = `/outputs/${filename}?t=${Date.now()}`;
+                if (modalTitle) {
+                    modalTitle.textContent = `Frame ${frameNumber || ''} - ${filename}`;
+                }
+                modal.classList.remove('hidden');
+            }
+        }
+        
+        function closeFrameModal() {
+            const modal = document.getElementById('frameModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+        
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('frameModal');
+            if (modal && e.target === modal) {
+                closeFrameModal();
+            }
+        });
+    </script>
+</body>
+</html> 
